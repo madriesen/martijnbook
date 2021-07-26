@@ -17,6 +17,7 @@ export class AuthenticationService {
 
   constructor(private router: Router) {
     const user = localStorage.getItem('auth')
+    user && (this.isLoggedIn = true)
     this.currentUserSubject = new BehaviorSubject<User>((user ? JSON.parse(user) : {firstName: '', lastName: '', email: ''}))
     this.currentUser = this.currentUserSubject.asObservable()
   }
