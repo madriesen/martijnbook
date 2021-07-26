@@ -1,17 +1,30 @@
 module.exports = {
-  prefix: '',
-  purge: {
-    enabled: true,
-    content: [
-      './src/**/*.{html,ts}',
-    ]
-  },
-  darkMode: 'class', // or 'media' or 'class'
+  prefix: "",
+  // purge: {
+  //   enabled: true,
+  //   content: ["./src/**/*.{html,ts}"],
+  // },
+  darkMode: "class", // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#0f90f3",
+        red: "#e72d4c",
+        green: "#45bd63",
+        yellow: "#f6b929",
+        black: "#18191b",
+        gray: "#242527",
+        "soft-gray": "#3a3b3d",
+        "light-gray": "#a8acaf",
+        white: "#e4e5eb",
+      },
+      boxShadow: {
+        lg: '0 20px 25px -5px rgb(15, 15, 15), 0 10px 10px -5px rgb(40, 40, 40)'
+      }
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms'),require('@tailwindcss/typography')],
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
 };
