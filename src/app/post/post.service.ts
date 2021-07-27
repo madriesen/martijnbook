@@ -11,6 +11,6 @@ posts : Post[]
     const now = new Date()
     now.setMonth(new Date().getMonth() - 10)
 
-    this.posts = [{content: 'This is my first post', author: this.authenticationService.currentUserValue, created_at: now}]
+    this.posts = [{content: 'This is my first post', author: this.authenticationService.currentUserValue, likes: [this.authenticationService.currentUserValue], created_at: now}]
    }
 }

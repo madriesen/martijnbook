@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faUser, faGlobeAmericas, faEllipsisH, IconDefinition, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faGlobeAmericas, faEllipsisH, IconDefinition, faThumbsUp, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { Post } from './post.interface';
 
 
@@ -13,14 +14,16 @@ export class PostComponent implements OnInit {
   worldIcon: IconDefinition;
   ellipsisIcon: IconDefinition;
   thumbsUpIcon: IconDefinition;
+  commentDotsIcon: IconDefinition
 
-  @Input() post: Post = {content: '', author: {firstName: '', lastName: '', email: ''}, created_at: new Date()};
+  @Input() post: Post = {content: '', likes: [],  author: {firstName: '', lastName: '', email: ''}, created_at: new Date()};
 
-    constructor() {
+    constructor(private authenticationService: AuthenticationService) {
     this.userIcon = faUser;
     this.worldIcon=faGlobeAmericas
     this.ellipsisIcon=faEllipsisH
     this.thumbsUpIcon = faThumbsUp
+    this.commentDotsIcon = faCommentDots
    }
 
   ngOnInit(): void {  }
@@ -54,4 +57,7 @@ export class PostComponent implements OnInit {
     return (diffInYears).toFixed(0) + ' y'
   }
 
+  get currentUserLikesPost(): boolean {
+    return this.post.likes.indexOf(this.authenticationService.currentUserValue) > -1
+  }
 }
