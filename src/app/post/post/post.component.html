@@ -1,0 +1,18 @@
+<div class="w-full pt-2  bg-soft-gray mb-4 md:rounded-md">
+  <div class="flex items-center mx-2 px-1">
+    <div class="rounded-full bg-primary w-8 h-8 flex justify-center items-center mr-3">    <fa-icon  [icon]="userIcon"></fa-icon>
+    </div>
+    <div class="flex-1"><h3>{{post.author.firstName}} {{post.author.lastName}}</h3><p class="text-light-gray text-xs">{{timeDifference}} ·  <fa-icon  [icon]="worldIcon"></fa-icon></p></div>
+    <div><fa-icon  [icon]="ellipsisIcon"></fa-icon></div>
+  </div>
+
+  <div class="mt-2 mx-2 px-1">{{post.content}} </div>
+  <div class="w-full mt-2 h-48  bg-yellow"></div>
+  <div class="mx-2 px-1 mt-5 flex items-center"><span class="text-xs w-5 h-5 flex justify-center items-center bg-primary rounded-full mr-3 pb-0.5">
+    <fa-icon  [icon]="thumbsUpIcon"></fa-icon>
+  </span> <span class="text-light-grey">15</span></div>
+  <div class="mx-2 mt-2 border-t border-light-gray grid grid-cols-2 font-bold pt-2 pb-1 px-1">
+    <button class="text-center hover:bg-gray py-2 rounded">Like</button>
+    <button class="text-center hover:bg-gray py-2 rounded">Comment</button>
+  </div>
+</div>

@@ -11,3 +11,7 @@
 h1 {
   @apply text-3xl font-bold pb-4;
 }
+
+h3{
+  @apply font-bold
+}

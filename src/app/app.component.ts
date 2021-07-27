@@ -8,9 +8,5 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
   title = 'martijnbook';
 
-  onInit(): void {
-    document
-      .getElementsByTagName('router-outlet')[0]
-      .nextElementSibling?.classList.add('flex-1');
-  }
+  onInit(): void {}
 }

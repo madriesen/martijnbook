@@ -20,6 +20,9 @@ module.exports = {
       },
       boxShadow: {
         lg: '0 20px 25px -5px rgb(15, 15, 15), 0 10px 10px -5px rgb(40, 40, 40)'
+      },
+      width: {
+        post: '680px'
       }
     },
   },
