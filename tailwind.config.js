@@ -23,6 +23,9 @@ module.exports = {
       },
       width: {
         post: '680px'
+      },
+      padding: {
+        login: '15vh'
       }
     },
   },

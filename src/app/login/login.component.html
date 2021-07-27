@@ -1,4 +1,4 @@
-<div class="w-screen h-full flex justify-center items-start pt-40">
+<div class="w-screen h-full flex justify-center items-start pt-login">
   <div class="bg-soft-gray p-5 rounded-xl shadow-lg ">
     <div class="px-8 pt-2 pb-4">
       <p ng-show="errorMessage" class="mb-4 text-red italic">
@@ -23,7 +23,7 @@
             focus:outline-none focus:shadow-outline
           "
           id="email"
-          type="text"
+          type="email"
           placeholder="Email"
           [(ngModel)]="user.email"
           name="email"
