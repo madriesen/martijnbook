@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faUser, faGlobeAmericas, faEllipsisH, IconDefinition, faThumbsUp, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { PostService } from '../post.service';
 import { Post } from './post.interface';
 
 
@@ -16,9 +17,9 @@ export class PostComponent implements OnInit {
   thumbsUpIcon: IconDefinition;
   commentDotsIcon: IconDefinition
 
-  @Input() post: Post = {content: '', likes: [],  author: {firstName: '', lastName: '', email: ''}, created_at: new Date()};
+  @Input() post: Post = {_id: 0, content: '', likes: [],  author: {_id: 0, firstName: '', lastName: '', email: ''}, created_at: new Date()};
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private postService: PostService) {
     this.userIcon = faUser;
     this.worldIcon=faGlobeAmericas
     this.ellipsisIcon=faEllipsisH
@@ -59,5 +60,13 @@ export class PostComponent implements OnInit {
 
   get currentUserLikesPost(): boolean {
     return this.post.likes.indexOf(this.authenticationService.currentUserValue) > -1
+  }
+
+  toggleLike(): void {
+    this.postService.toggleLike({_id: 1, user_id: 1})
+  }
+
+  get amountOfLikes(): number {
+    return this.post.likes.length
   }
 }

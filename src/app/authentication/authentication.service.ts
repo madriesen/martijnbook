@@ -18,7 +18,7 @@ export class AuthenticationService {
   constructor(private router: Router) {
     const user = localStorage.getItem('auth')
     user && (this.isLoggedIn = true)
-    this.currentUserSubject = new BehaviorSubject<User>((user ? JSON.parse(user) : {firstName: '', lastName: '', email: ''}))
+    this.currentUserSubject = new BehaviorSubject<User>((user ? JSON.parse(user) : {_id: 0, firstName: '', lastName: '', email: ''}))
     this.currentUser = this.currentUserSubject.asObservable()
   }
 
@@ -42,6 +42,7 @@ export class AuthenticationService {
     }
 
     this.updateUser({
+      _id: 1,
       firstName: 'Martijn',
       lastName: 'Driesen',
       email: 'admin@martijnbook.be',
@@ -56,7 +57,7 @@ export class AuthenticationService {
   logout():void {
     localStorage.removeItem('auth')
     this.isLoggedIn = false
-    this.updateUser({firstName: '', lastName: '', email: ''})
+    this.updateUser({_id: 0, firstName: '', lastName: '', email: ''})
     this.router.navigate(['login']);
   }
 }
