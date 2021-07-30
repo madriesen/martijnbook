@@ -17,7 +17,7 @@ export class PostComponent implements OnInit {
   thumbsUpIcon: IconDefinition;
   commentDotsIcon: IconDefinition
 
-  @Input() post: Post = {_id: 0, content: '', likes: [],  author: {_id: 0, firstName: '', lastName: '', email: ''}, created_at: new Date()};
+  @Input() post: Post = {Id: 0, Content: '', Likes: [],  Author: {Id: 0, FirstName: '', LastName: '', Email: ''}, created_at: new Date()};
 
     constructor(private authenticationService: AuthenticationService, private postService: PostService) {
     this.userIcon = faUser;
@@ -59,7 +59,7 @@ export class PostComponent implements OnInit {
   }
 
   get currentUserLikesPost(): boolean {
-    return this.post.likes.indexOf(this.authenticationService.currentUserValue) > -1
+    return this.post.Likes.indexOf(this.authenticationService.currentUserValue) > -1
   }
 
   toggleLike(): void {
@@ -67,6 +67,6 @@ export class PostComponent implements OnInit {
   }
 
   get amountOfLikes(): number {
-    return this.post.likes.length
+    return this.post.Likes.length
   }
 }

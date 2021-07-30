@@ -11,15 +11,15 @@ posts : Post[]
     const now = new Date()
     now.setMonth(new Date().getMonth() - 10)
 
-    this.posts = [{_id: 1, content: 'This is my first post', author: this.authenticationService.currentUserValue, likes: [this.authenticationService.currentUserValue], created_at: now}]
+    this.posts = [{Id: 1, Content: 'This is my first post', Author: this.authenticationService.currentUserValue, Likes: [this.authenticationService.currentUserValue], created_at: now}]
    }
 
    toggleLike(data:{_id: number, user_id: number}) {
      console.log('toggle Like')
-     const userIndex = this.posts[0].likes.indexOf(this.authenticationService.currentUserValue)
+     const userIndex = this.posts[0].Likes.indexOf(this.authenticationService.currentUserValue)
      if (userIndex > -1){
-       this.posts[0].likes.splice(userIndex)
+       this.posts[0].Likes.splice(userIndex)
      }
-     else this.posts[0].likes.push(this.authenticationService.currentUserValue)
+     else this.posts[0].Likes.push(this.authenticationService.currentUserValue)
    }
 }

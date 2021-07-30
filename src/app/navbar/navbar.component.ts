@@ -20,8 +20,8 @@ export class NavbarComponent implements OnInit {
   }
 
   get userName(): string {
-    if (this.user.firstName === '' || this.user.lastName === '') return 'Login';
-    return `${this.user.firstName} ${this.user.lastName}`;
+    if (this.user.FirstName === '' || this.user.LastName === '') return 'Login';
+    return `${this.user.FirstName} ${this.user.LastName}`;
   }
 
   logout(): void {

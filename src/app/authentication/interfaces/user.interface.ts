@@ -1,7 +1,17 @@
 export interface User {
-  _id: number,
-  firstName: string;
-  lastName: string;
-  email: string;
-  password?: string;
+  Id: number,
+  FirstName: string;
+  LastName: string;
+  Email: string;
+  Password?: string;
+  Username?: string;
+  RoleID?: string | Record<string, any>
+}
+
+
+export interface LoggedInResponse {
+  Id: string;
+  Username: string;
+   Email: string;
+    AccessToken: string
 }
