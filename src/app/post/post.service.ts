@@ -21,7 +21,7 @@ export class PostService {
   }
 
   toggleLike(post_id: string) {
-    this.http.post<Post>(`${environment.api}/post/like`, { post_id }).subscribe((returnPost: Post) => {
+    this.http.get<Post>(`${environment.api}/post/${post_id}/like`).subscribe((returnPost: Post) => {
       const index = this.postsValue.findIndex((post) => post._id == returnPost._id);
       this.postsValue[index] = returnPost;
       this.postsSubject.next(this.postsValue);
