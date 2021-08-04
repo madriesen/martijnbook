@@ -10,10 +10,11 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
 import { ErrorhandlingModule } from '../errorhandling/errorhandling.module';
+import { HttpClientService } from '../http-client.service';
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
   imports: [CommonModule, BrowserModule, HttpClientModule, FormsModule, AppRoutingModule, ErrorhandlingModule],
-  providers: [AuthenticationService, ErrorhandlingService],
+  providers: [AuthenticationService, ErrorhandlingService, HttpClientService],
 })
 export class AuthenticationModule {}

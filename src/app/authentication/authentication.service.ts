@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { LoggedInResponse, User } from './interfaces/user.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
+import { HttpClientService } from '../http-client.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +18,7 @@ export class AuthenticationService {
 
   public currentUserSubject: BehaviorSubject<User>;
 
-  constructor(private router: Router, private http: HttpClient, private errorhandling: ErrorhandlingService) {
+  constructor(private router: Router, private http: HttpClientService, private errorhandling: ErrorhandlingService) {
     const user = localStorage.getItem('auth');
     user && (this.isLoggedIn = true);
     this.currentUserSubject = new BehaviorSubject<User>(
@@ -47,17 +48,13 @@ export class AuthenticationService {
       .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
       .subscribe((data: LoggedInResponse) => {
         localStorage.setItem('authorization', 'Bearer ' + data.AccessToken);
-        this.http
-          .get<User>(environment.api + '/user/' + data.Id, {
-            headers: { authorization: localStorage.getItem('authorization')! },
-          })
-          .subscribe((data) => {
-            this.updateUser(data);
-            localStorage.setItem('auth', JSON.stringify(this.currentUserValue));
-            this.errorhandling.updateErrorMessage('');
-            this.isLoggedIn = true;
-            this.router.navigate([this.redirectUrl]);
-          });
+        this.http.get<User>(environment.api + '/user/' + data.Id).subscribe((data) => {
+          this.updateUser(data);
+          localStorage.setItem('auth', JSON.stringify(this.currentUserValue));
+          this.errorhandling.updateErrorMessage('');
+          this.isLoggedIn = true;
+          this.router.navigate([this.redirectUrl]);
+        });
       });
   }
 

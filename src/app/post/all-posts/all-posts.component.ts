@@ -6,15 +6,14 @@ import { Post } from '../post/post.interface';
 @Component({
   selector: 'all-posts',
   templateUrl: './all-posts.component.html',
-  styleUrls: ['./all-posts.component.css']
+  styleUrls: ['./all-posts.component.css'],
 })
 export class AllPostsComponent implements OnInit {
-posts: Post[]
+  posts: Post[];
   constructor(private postService: PostService) {
-    this.posts = postService.posts
+    postService.getAllPosts();
+    this.posts = postService.posts;
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

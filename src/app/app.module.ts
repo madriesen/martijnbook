@@ -12,11 +12,16 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './loading.interceptor';
 import { ErrorhandlingModule } from './errorhandling/errorhandling.module';
 import { ErrorhandlingService } from './errorhandling/errorhandling.service';
+import { HttpClientService } from './http-client.service';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, HomeComponent],
   imports: [AppRoutingModule, FontAwesomeModule, AuthenticationModule, PostModule, CommonModule, ErrorhandlingModule],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }, ErrorhandlingService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    ErrorhandlingService,
+    HttpClientService,
+  ],
   bootstrap: [AppComponent],
   exports: [FontAwesomeModule],
 })

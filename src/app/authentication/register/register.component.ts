@@ -42,7 +42,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   onRegister(): void {
     this.errorMessage = '';
 
-    console.log('this.user.password', this.user.Password, this.confirmPassword);
     if (this.user.Password !== this.confirmPassword) {
       this.errorMessage = 'Passwords does not match!';
       return;
