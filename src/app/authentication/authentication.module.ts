@@ -8,13 +8,12 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
+import { ErrorhandlingModule } from '../errorhandling/errorhandling.module';
 
 @NgModule({
-  declarations: [
-    RegisterComponent,
-    LoginComponent
-  ],
-  imports: [CommonModule, BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
-  providers: [AuthenticationService],
+  declarations: [RegisterComponent, LoginComponent],
+  imports: [CommonModule, BrowserModule, HttpClientModule, FormsModule, AppRoutingModule, ErrorhandlingModule],
+  providers: [AuthenticationService, ErrorhandlingService],
 })
 export class AuthenticationModule {}
