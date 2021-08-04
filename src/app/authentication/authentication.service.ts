@@ -12,7 +12,8 @@ import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
 export class AuthenticationService {
   public isLoggedIn: Boolean = false;
   public redirectUrl: String = '';
-  public errorMessageSubject: BehaviorSubject<string>;
+  private errorMessageSubject: BehaviorSubject<string>;
+  public errorMessage: Observable<string>;
 
   public currentUserSubject: BehaviorSubject<User>;
 
@@ -24,7 +25,8 @@ export class AuthenticationService {
     );
 
     this.errorMessageSubject = new BehaviorSubject('');
-    this.errorhandling.errorMessageSubject.subscribe((message) => this.updateErrorMessage(message));
+    this.errorhandling.errorMessage.subscribe((message) => this.updateErrorMessage(message));
+    this.errorMessage = this.errorMessageSubject.asObservable();
   }
 
   get currentUserValue(): User {

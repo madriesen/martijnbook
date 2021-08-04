@@ -24,7 +24,7 @@ export class PostService {
   }
 
   getErrorMessage() {
-    return this.errorhandling.errorMessageSubject.subscribe((message) => (this.errorMessage = message));
+    return this.errorhandling.errorMessage.subscribe((message) => (this.errorMessage = message));
   }
 
   toggleLike(data: { _id: number; user_id: number }) {

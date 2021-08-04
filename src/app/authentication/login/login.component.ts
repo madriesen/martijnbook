@@ -30,6 +30,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = false;
     this.subscriptions = [];
     this.subscriptions.push(this.loadingService.isLoadingSubject.subscribe((loading) => (this.loading = loading)));
+    this.subscriptions.push(
+      this.authenticationService.errorMessage.subscribe((message) => (this.errorMessage = message))
+    );
   }
 
   ngOnInit(): void {}
@@ -37,13 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   onLogin(): void {
     this.errorMessage = '';
     this.authenticationService.login(this.user);
-  }
-
-  getErrorMessage(): void {
-    this.authenticationService.errorMessageSubject.subscribe((message) => {
-      this.errorMessage = message;
-      console.log('message', message);
-    });
   }
 
   ngOnDestroy(): void {

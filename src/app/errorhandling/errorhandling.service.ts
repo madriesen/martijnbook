@@ -1,15 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorhandlingService {
-  public errorMessageSubject: BehaviorSubject<string>;
+  private errorMessageSubject: BehaviorSubject<string>;
+  public errorMessage: Observable<string>;
 
   constructor() {
     this.errorMessageSubject = new BehaviorSubject<string>('');
+    this.errorMessage = this.errorMessageSubject.asObservable();
   }
 
   updateErrorMessage(message: string) {
