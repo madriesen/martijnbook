@@ -1,9 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
 import { HttpClientService } from '../http-client.service';
 import { Post } from './post/post.interface';
 
@@ -11,36 +8,29 @@ import { Post } from './post/post.interface';
   providedIn: 'root',
 })
 export class PostService {
-  posts: Post[];
-  errorMessage: String = '';
-  constructor(
-    private authenticationService: AuthenticationService,
-    private http: HttpClientService,
-    private errorhandling: ErrorhandlingService
-  ) {
-    const now = new Date();
-    now.setMonth(new Date().getMonth() - 10);
+  private postsSubject: BehaviorSubject<Post[]>;
+  public posts: Observable<Post[]>;
 
-    this.posts = [];
+  constructor(private http: HttpClientService) {
+    this.postsSubject = new BehaviorSubject([] as Post[]);
+    this.posts = this.postsSubject.asObservable();
   }
 
-  getErrorMessage() {
-    return this.errorhandling.errorMessage.subscribe((message) => (this.errorMessage = message));
+  get postsValue() {
+    return this.postsSubject.value;
   }
 
-  toggleLike(data: { _id: number; user_id: number }) {
-    const userIndex = this.posts[0].Likes.indexOf(this.authenticationService.currentUserValue);
-    if (userIndex > -1) {
-      this.posts[0].Likes.splice(userIndex);
-    } else this.posts[0].Likes.push(this.authenticationService.currentUserValue);
+  toggleLike(post_id: string) {
+    this.http.post<Post>(`${environment.api}/post/like`, { post_id }).subscribe((returnPost: Post) => {
+      const index = this.postsValue.findIndex((post) => post._id == returnPost._id);
+      this.postsValue[index] = returnPost;
+      this.postsSubject.next(this.postsValue);
+    });
   }
 
   getAllPosts(): void {
-    this.http
-      .get(`${environment.api}/post`)
-      .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
-      .subscribe((data) => {
-        console.log('data', data);
-      });
+    this.http.get<Post[]>(`${environment.api}/post`).subscribe((data: Post[]) => {
+      this.postsSubject.next(data);
+    });
   }
 }

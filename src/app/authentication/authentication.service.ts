@@ -22,7 +22,7 @@ export class AuthenticationService {
     const user = localStorage.getItem('auth');
     user && (this.isLoggedIn = true);
     this.currentUserSubject = new BehaviorSubject<User>(
-      user ? JSON.parse(user) : { _id: 0, FirstName: '', LastName: '', Email: '' }
+      user ? JSON.parse(user) : { _id: '0', FirstName: '', LastName: '', Email: '' }
     );
 
     this.errorMessageSubject = new BehaviorSubject('');
@@ -76,7 +76,7 @@ export class AuthenticationService {
   logout(): void {
     localStorage.removeItem('auth');
     this.isLoggedIn = false;
-    this.updateUser({ _id: 0, FirstName: '', LastName: '', Email: '' });
+    this.updateUser({ _id: '0', FirstName: '', LastName: '', Email: '' });
     this.router.navigate(['login']);
   }
 }

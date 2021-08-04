@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private router: Router,
     private loadingService: LoadingService
   ) {
-    if (this.authenticationService.currentUserValue._id !== 0) {
+    if (this.authenticationService.currentUserValue._id !== '0') {
       this.router.navigate(['/']);
     }
     this.user = {};
