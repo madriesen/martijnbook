@@ -10,17 +10,13 @@ import { HomeComponent } from './home/home.component';
 import { PostModule } from './post/post.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './loading.interceptor';
+import { ErrorhandlingModule } from './errorhandling/errorhandling.module';
+import { ErrorhandlingService } from './errorhandling/errorhandling.service';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, HomeComponent],
-  imports: [
-    AppRoutingModule,
-    FontAwesomeModule,
-    AuthenticationModule,
-    PostModule,
-    CommonModule,
-  ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}],
+  imports: [AppRoutingModule, FontAwesomeModule, AuthenticationModule, PostModule, CommonModule, ErrorhandlingModule],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }, ErrorhandlingService],
   bootstrap: [AppComponent],
   exports: [FontAwesomeModule],
 })
