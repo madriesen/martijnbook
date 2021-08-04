@@ -2,7 +2,7 @@ import { User } from "src/app/authentication/interfaces/user.interface";
 
 export interface Post
  {
-   Id: number,
+   _id: number,
    Content: string
    Author: User,
    Likes: User[]

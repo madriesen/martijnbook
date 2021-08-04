@@ -17,7 +17,7 @@ export class PostComponent implements OnInit {
   thumbsUpIcon: IconDefinition;
   commentDotsIcon: IconDefinition
 
-  @Input() post: Post = {Id: 0, Content: '', Likes: [],  Author: {Id: 0, FirstName: '', LastName: '', Email: ''}, created_at: new Date()};
+  @Input() post: Post = {_id: 0, Content: '', Likes: [],  Author: {_id: 0, FirstName: '', LastName: '', Email: ''}, created_at: new Date()};
 
     constructor(private authenticationService: AuthenticationService, private postService: PostService) {
     this.userIcon = faUser;

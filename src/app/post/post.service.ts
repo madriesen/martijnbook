@@ -11,7 +11,7 @@ posts : Post[]
     const now = new Date()
     now.setMonth(new Date().getMonth() - 10)
 
-    this.posts = [{Id: 1, Content: 'This is my first post', Author: this.authenticationService.currentUserValue, Likes: [this.authenticationService.currentUserValue], created_at: now}]
+    this.posts = [{_id: 1, Content: 'This is my first post', Author: this.authenticationService.currentUserValue, Likes: [this.authenticationService.currentUserValue], created_at: now}]
    }
 
    toggleLike(data:{_id: number, user_id: number}) {
