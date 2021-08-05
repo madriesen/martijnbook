@@ -1,6 +1,9 @@
 <div class="w-full pt-2 bg-soft-gray mb-4 md:rounded-md">
   <div class="flex items-center mx-2 px-1">
-    <div class="rounded-full bg-primary w-8 h-8 flex justify-center items-center mr-3">
+    <div
+      class="rounded-full w-8 h-8 flex justify-center items-center mr-3"
+      [ngStyle]="{ 'background-color': '#' + post.Author._id.slice(-6) }"
+    >
       <fa-icon [icon]="userIcon"></fa-icon>
     </div>
     <div class="flex-1">

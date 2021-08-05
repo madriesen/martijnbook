@@ -33,4 +33,10 @@ export class PostService {
       this.postsSubject.next(data);
     });
   }
+
+  createPost(content: string) {
+    this.http.post<Post>(`${environment.api}/post`, { content }).subscribe((data: Post) => {
+      this.postsSubject.next([...this.postsValue, data]);
+    });
+  }
 }

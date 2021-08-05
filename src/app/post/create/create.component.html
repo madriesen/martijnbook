@@ -1,0 +1,41 @@
+<div class="my-4 rounded-lg bg-gray px-3 py-5">
+  <div class="flex items-center pb-3 border-b border-light-gray">
+    <div
+      class="rounded-full w-12 h-12 flex justify-center items-center mr-3"
+      [ngStyle]="{ 'background-color': '#' + currentUser._id.slice(-6) }"
+    >
+      <fa-icon [icon]="userIcon" size="2x"></fa-icon>
+    </div>
+    <textarea
+      placeholder="Hey {{ currentUser.FirstName }}, what's on your mind?"
+      id="createPost"
+      (change)="setCreatePostInputHeight()"
+      [(ngModel)]="newPost"
+      class="
+        py-2
+        px-5
+        rounded-3xl
+        bg-soft-gray
+        placeholder-light-gray
+        flex-1
+        border-none
+        outline-none
+        focus:outline-none focus:border-none
+        active:outline-none
+        focus:shadow-none
+        active:shadow-none
+        focus:ring-0
+      "
+    ></textarea>
+  </div>
+  <div class="pt-3">
+    <button
+      [disabled]="!isActive"
+      class="w-full py-2 font-bold rounded-xl"
+      [ngClass]="isActive ? 'bg-primary cursor-pointer' : 'bg-soft-gray cursor-default'"
+      (click)="post()"
+    >
+      Post
+    </button>
+  </div>
+</div>
