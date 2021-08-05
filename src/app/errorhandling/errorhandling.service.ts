@@ -7,11 +7,11 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 })
 export class ErrorhandlingService {
   private errorMessageSubject: BehaviorSubject<string>;
-  public errorMessage: Observable<string>;
+  public errorMessage$: Observable<string>;
 
   constructor() {
     this.errorMessageSubject = new BehaviorSubject<string>('');
-    this.errorMessage = this.errorMessageSubject.asObservable();
+    this.errorMessage$ = this.errorMessageSubject.asObservable();
   }
 
   updateErrorMessage(message: string) {

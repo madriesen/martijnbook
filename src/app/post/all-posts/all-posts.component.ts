@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { PostService } from '../post.service';
 import { Post } from '../post/post.interface';
 
@@ -13,7 +12,7 @@ export class AllPostsComponent implements OnInit {
   constructor(private postService: PostService) {
     postService.getAllPosts();
     this.posts = [];
-    postService.posts.subscribe((posts) => (this.posts = posts));
+    postService.posts$.subscribe((posts) => (this.posts = posts));
   }
 
   ngOnInit(): void {}

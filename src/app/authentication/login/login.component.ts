@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
     this.subscriptions.push(this.loadingService.isLoadingSubject.subscribe((loading) => (this.loading = loading)));
     this.subscriptions.push(
-      this.authenticationService.errorMessage.subscribe((message) => (this.errorMessage = message))
+      this.authenticationService.errorMessage$.subscribe((message) => (this.errorMessage = message))
     );
   }
 

@@ -9,11 +9,11 @@ import { Post } from './post/post.interface';
 })
 export class PostService {
   private postsSubject: BehaviorSubject<Post[]>;
-  public posts: Observable<Post[]>;
+  public posts$: Observable<Post[]>;
 
   constructor(private http: HttpClientService) {
     this.postsSubject = new BehaviorSubject([] as Post[]);
-    this.posts = this.postsSubject.asObservable();
+    this.posts$ = this.postsSubject.asObservable();
   }
 
   get postsValue() {
