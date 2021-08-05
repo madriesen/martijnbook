@@ -31,6 +31,7 @@ export class CreateComponent implements OnInit {
 
   post() {
     this.postService.createPost(this.newPost);
+    this.newPost = '';
   }
 
   setCreatePostInputHeight() {
