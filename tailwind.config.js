@@ -30,6 +30,10 @@ module.exports = {
       minWidth: {
         half: '50%',
         button: '8rem',
+        8: '2rem' /* 32px */,
+      },
+      maxWidth: {
+        vw: '80vw',
       },
     },
   },

@@ -1,7 +1,7 @@
 <div class="w-full pt-2 bg-gray mb-4 md:rounded-md">
   <div class="flex items-center mx-2 px-1">
     <div
-      class="rounded-full w-8 h-8 flex justify-center items-center mr-3"
+      class="rounded-full min-w-8 w-8 h-8 flex justify-center items-center mr-3"
       [ngStyle]="{ 'background-color': '#' + post.Author._id.slice(-6) }"
     >
       <fa-icon [icon]="userIcon"></fa-icon>
@@ -66,7 +66,7 @@
       >
         <fa-icon [icon]="userIcon" size="xs"></fa-icon>
       </div>
-      <div class="py-2 px-5 rounded-3xl bg-soft-gray placeholder-light-gray border-none max-w-md">
+      <div class="py-2 px-5 rounded-3xl bg-soft-gray placeholder-light-gray border-none max-w-vw md:max-w-md">
         <div class="font-bold">
           {{ comment.Author.FirstName }} {{ comment.Author.LastName }}
           <span class="text-light-gray italic font-normal text-xs">
