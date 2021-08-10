@@ -27,6 +27,10 @@ module.exports = {
       padding: {
         login: '15vh',
       },
+      minWidth: {
+        half: '50%',
+        button: '8rem',
+      },
     },
   },
   variants: {
@@ -34,6 +38,8 @@ module.exports = {
       outline: ['hover', 'focus', 'active'],
       boxShadow: ['hover', 'focus', 'active'],
       ringWidth: ['hover', 'focus', 'active'],
+      backgroundColor: ['disabled'],
+      textColor: ['disabled'],
     },
   },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],

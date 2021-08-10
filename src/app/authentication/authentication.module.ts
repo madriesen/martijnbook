@@ -11,9 +11,10 @@ import { AppRoutingModule } from '../app-routing.module';
 import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
 import { ErrorhandlingModule } from '../errorhandling/errorhandling.module';
 import { HttpClientService } from '../http-client.service';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [RegisterComponent, LoginComponent, UserComponent],
   imports: [CommonModule, BrowserModule, HttpClientModule, FormsModule, AppRoutingModule, ErrorhandlingModule],
   providers: [AuthenticationService, ErrorhandlingService, HttpClientService],
 })

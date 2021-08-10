@@ -40,17 +40,17 @@ export class AuthenticationService {
 
   private updateUser(user: User) {
     this.currentUserSubject.next(user);
+    localStorage.setItem('auth', JSON.stringify(this.currentUserValue));
   }
 
   login(user: Partial<User>): void {
     this.http
-      .post<LoggedInResponse>(`${environment.api}/user/authenticate`, { Username: user.Email, Password: user.Password })
+      .post<LoggedInResponse>(`/user/authenticate`, { Username: user.Email, Password: user.Password })
       .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
       .subscribe((data: LoggedInResponse) => {
         localStorage.setItem('authorization', 'Bearer ' + data.AccessToken);
-        this.http.get<User>(environment.api + '/user/' + data._id).subscribe((data) => {
+        this._getUser(data._id).subscribe((data) => {
           this.updateUser(data);
-          localStorage.setItem('auth', JSON.stringify(this.currentUserValue));
           this.errorhandling.updateErrorMessage('');
           this.isLoggedIn = true;
           this.router.navigate([this.redirectUrl]);
@@ -58,9 +58,15 @@ export class AuthenticationService {
       });
   }
 
+  private _getUser(user_id: string): Observable<User> {
+    return this.http
+      .get<User>('/user/' + user_id)
+      .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)));
+  }
+
   register(user: Partial<User>): void {
     this.http
-      .post<User>(`${environment.api}/user/`, {
+      .post<User>(`/user/`, {
         FirstName: user.FirstName,
         LastName: user.LastName,
         Email: user.Email,
@@ -78,5 +84,16 @@ export class AuthenticationService {
     this.isLoggedIn = false;
     this.updateUser({ _id: '0', FirstName: '', LastName: '', Email: '' });
     this.router.navigate(['login']);
+  }
+
+  changeUser(user: Partial<User>): void {
+    this.http
+      .put<User>(`/user/${user._id}`, { ...user })
+      .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
+      .subscribe((data: User) => {
+        this._getUser(data._id).subscribe((user) => {
+          this.updateUser(user);
+        });
+      });
   }
 }

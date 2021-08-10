@@ -1,0 +1,11 @@
+input {
+  @apply py-2 px-5 rounded-3xl bg-soft-gray placeholder-light-gray border-none outline-none min-w-half;
+}
+
+input:focus {
+  @apply outline-none border-none shadow-none ring-0;
+}
+
+input:active {
+  @apply outline-none shadow-none;
+}

@@ -6,6 +6,7 @@ export interface User {
   Password?: string;
   Username?: string;
   RoleID?: string | Record<string, any>;
+  __v?: number;
 }
 
 export interface LoggedInResponse {

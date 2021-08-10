@@ -21,7 +21,7 @@ export class PostService {
   }
 
   toggleLike(post_id: string) {
-    this.http.get<Post>(`${environment.api}/post/${post_id}/like`).subscribe((returnPost: Post) => {
+    this.http.get<Post>(`/post/${post_id}/like`).subscribe((returnPost: Post) => {
       const index = this.postsValue.findIndex((post) => post._id == returnPost._id);
       this.postsValue[index] = returnPost;
       this.postsSubject.next(this.postsValue);
@@ -29,25 +29,23 @@ export class PostService {
   }
 
   getAllPosts(): void {
-    this.http.get<Post[]>(`${environment.api}/post`).subscribe((data: Post[]) => {
+    this.http.get<Post[]>(`/post`).subscribe((data: Post[]) => {
       this.postsSubject.next(data);
     });
   }
 
   createPost(content: string) {
-    this.http.post<Post>(`${environment.api}/post`, { Content: content }).subscribe((data: Post) => {
+    this.http.post<Post>(`/post`, { Content: content }).subscribe((data: Post) => {
       this.postsSubject.next([data, ...this.postsValue]);
     });
   }
 
   addComment(data: { _id: string; comment: string }) {
-    this.http
-      .post<Post>(`${environment.api}/post/${data._id}/comment`, { Content: data.comment })
-      .subscribe((returnPost: Post) => {
-        const index = this.postsValue.findIndex((post) => post._id == returnPost._id);
-        this.postsValue[index] = returnPost;
-        console.log('returnPost', returnPost);
-        this.postsSubject.next(this.postsValue);
-      });
+    this.http.post<Post>(`/post/${data._id}/comment`, { Content: data.comment }).subscribe((returnPost: Post) => {
+      const index = this.postsValue.findIndex((post) => post._id == returnPost._id);
+      this.postsValue[index] = returnPost;
+      console.log('returnPost', returnPost);
+      this.postsSubject.next(this.postsValue);
+    });
   }
 }

@@ -13,19 +13,13 @@ export class NavbarComponent implements OnInit {
   userIcon: IconDefinition;
 
   constructor(private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUserSubject.subscribe(
-      (user) => (this.user = user)
-    );
+    this.authenticationService.currentUserSubject.subscribe((user) => (this.user = user));
     this.userIcon = faUser;
   }
 
   get userName(): string {
     if (this.user.FirstName === '' || this.user.LastName === '') return 'Login';
     return `${this.user.FirstName} ${this.user.LastName}`;
-  }
-
-  logout(): void {
-    this.authenticationService.logout()
   }
 
   ngOnInit(): void {
