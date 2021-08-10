@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpInterceptor,
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpInterceptor } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 import { LoadingService } from './loading.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
   private totalRequests = 0;
 
-  constructor(private loadingService: LoadingService) { }
+  constructor(private loadingService: LoadingService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     this.totalRequests++;
+    console.log('request', request);
+    if (request.url === `${environment.api}/post` && request.method === 'GET') this.setPostLoading();
     this.loadingService.setLoading(true);
 
     return next.handle(request).pipe(
@@ -22,8 +21,14 @@ export class LoadingInterceptor implements HttpInterceptor {
         this.totalRequests--;
         if (this.totalRequests === 0) {
           this.loadingService.setLoading(false);
+          this.loadingService.setPostsLoading(false);
         }
       })
     );
+  }
+
+  setPostLoading() {
+    console.log('posts are loading');
+    this.loadingService.setPostsLoading(true);
   }
 }

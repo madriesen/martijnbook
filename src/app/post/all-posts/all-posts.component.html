@@ -1,6 +1,13 @@
 <main>
   <create-post></create-post>
-  <div *ngFor="let post of posts">
-    <post [post]="post"></post>
+  <div *ngIf="loading; else mainPosts" class="loading flex justify-center items-center mt-16">
+    <div class="icon icon-1"></div>
+    <div class="icon icon-2"></div>
+    <div class="icon icon-3"></div>
   </div>
+  <ng-template #mainPosts>
+    <div *ngFor="let post of posts">
+      <post [post]="post"></post>
+    </div>
+  </ng-template>
 </main>
