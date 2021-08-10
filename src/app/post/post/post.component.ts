@@ -8,7 +8,9 @@ import {
   faCommentDots,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { User } from 'src/app/authentication/interfaces/user.interface';
 import { PostService } from '../post.service';
+import { emoticonize } from './emoticon.helper';
 import { Post } from './post.interface';
 
 @Component({
@@ -22,6 +24,8 @@ export class PostComponent implements OnInit {
   ellipsisIcon: IconDefinition;
   thumbsUpIcon: IconDefinition;
   commentDotsIcon: IconDefinition;
+  openComment: boolean;
+  newComment: string;
 
   @Input() post!: Post;
 
@@ -31,15 +35,83 @@ export class PostComponent implements OnInit {
     this.ellipsisIcon = faEllipsisH;
     this.thumbsUpIcon = faThumbsUp;
     this.commentDotsIcon = faCommentDots;
+    this.openComment = false;
+    this.newComment = '';
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.post.Comments.length > 0) this.toggleOpenComment();
+  }
 
   get timeDifference(): string {
-    const postDate = new Date(this.post.createdAt);
+    return this.getTimeDifference(new Date(this.post.createdAt));
+  }
+
+  get currentUserLikesPost(): boolean {
+    return this.post.Likes.findIndex((user) => user._id === this.authenticationService.currentUserValue._id) > -1;
+  }
+
+  get currentUser(): User {
+    return this.authenticationService.currentUserValue;
+  }
+
+  toggleLike(): void {
+    this.postService.toggleLike(this.post._id);
+  }
+
+  toggleOpenComment(): void {
+    if (this.openComment) return;
+    this.openComment = true;
+
+    // set timeout to wait for textarea to open so id can be found
+    setTimeout(() => this.setWriteCommentInputHeight(), 5);
+  }
+
+  postComment($event: Event): void {
+    $event.preventDefault();
+
+    if (this.newComment.indexOf('\n') <= 1) {
+      this.newComment = '';
+      return;
+    }
+
+    this.postService.addComment({ _id: this.post._id, comment: this.newComment.trim() });
+    this.newComment = '';
+
+    return;
+  }
+
+  getCommentTimeDifference(commentTime: string): string {
+    return this.getTimeDifference(new Date(commentTime));
+  }
+
+  get amountOfLikes(): number {
+    return this.post.Likes.length;
+  }
+
+  setWriteCommentInputHeight() {
+    const writeCommentInput = document.getElementById('writeComment' + this.post._id);
+
+    if (!writeCommentInput) return;
+
+    writeCommentInput.setAttribute(
+      'style',
+      'height:' + (writeCommentInput.scrollHeight - 25) + 'px;overflow-y:hidden; resize: none;'
+    );
+    writeCommentInput.addEventListener(
+      'input',
+      () => {
+        writeCommentInput.style.height = 'auto';
+        writeCommentInput.style.height = writeCommentInput.scrollHeight - 20 + 'px';
+      },
+      false
+    );
+  }
+
+  private getTimeDifference(date: Date): string {
     const now = new Date();
 
-    const diffInSeconds = (now.getTime() - postDate.getTime()) / 1000;
+    const diffInSeconds = (now.getTime() - date.getTime()) / 1000;
 
     if (diffInSeconds < 60) return diffInSeconds.toFixed(0) + ' s';
 
@@ -64,15 +136,7 @@ export class PostComponent implements OnInit {
     return diffInYears.toFixed(0) + ' y';
   }
 
-  get currentUserLikesPost(): boolean {
-    return this.post.Likes.findIndex((user) => user._id === this.authenticationService.currentUserValue._id) > -1;
-  }
-
-  toggleLike(): void {
-    this.postService.toggleLike(this.post._id);
-  }
-
-  get amountOfLikes(): number {
-    return this.post.Likes.length;
+  onInputChange(): void {
+    this.newComment = emoticonize(this.newComment, true);
   }
 }

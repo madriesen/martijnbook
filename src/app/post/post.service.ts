@@ -35,8 +35,19 @@ export class PostService {
   }
 
   createPost(content: string) {
-    this.http.post<Post>(`${environment.api}/post`, { content }).subscribe((data: Post) => {
+    this.http.post<Post>(`${environment.api}/post`, { Content: content }).subscribe((data: Post) => {
       this.postsSubject.next([data, ...this.postsValue]);
     });
+  }
+
+  addComment(data: { _id: string; comment: string }) {
+    this.http
+      .post<Post>(`${environment.api}/post/${data._id}/comment`, { Content: data.comment })
+      .subscribe((returnPost: Post) => {
+        const index = this.postsValue.findIndex((post) => post._id == returnPost._id);
+        this.postsValue[index] = returnPost;
+        console.log('returnPost', returnPost);
+        this.postsSubject.next(this.postsValue);
+      });
   }
 }

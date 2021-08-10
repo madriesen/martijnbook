@@ -3,6 +3,7 @@ import { faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { User } from 'src/app/authentication/interfaces/user.interface';
 import { PostService } from '../post.service';
+import { emoticonize } from '../post/emoticon.helper';
 
 @Component({
   selector: 'create-post',
@@ -39,7 +40,10 @@ export class CreateComponent implements OnInit {
 
     if (!createPostInput) return;
 
-    createPostInput.setAttribute('style', 'height:' + (createPostInput.scrollHeight - 20) + 'px;overflow-y:hidden;');
+    createPostInput.setAttribute(
+      'style',
+      'height:' + (createPostInput.scrollHeight - 20) + 'px;overflow-y:hidden;  resize: none;'
+    );
     createPostInput.addEventListener(
       'input',
       () => {
@@ -48,5 +52,10 @@ export class CreateComponent implements OnInit {
       },
       false
     );
+  }
+
+  onInputChange(): void {
+    this.newPost = emoticonize(this.newPost, true);
+    this.setCreatePostInputHeight();
   }
 }

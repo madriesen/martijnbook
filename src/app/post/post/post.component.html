@@ -1,4 +1,4 @@
-<div class="w-full pt-2 bg-soft-gray mb-4 md:rounded-md">
+<div class="w-full pt-2 bg-gray mb-4 md:rounded-md">
   <div class="flex items-center mx-2 px-1">
     <div
       class="rounded-full w-8 h-8 flex justify-center items-center mr-3"
@@ -23,16 +23,65 @@
     </span>
     <span class="text-light-grey italic">{{ amountOfLikes }}</span>
   </div>
-  <div class="mx-2 mt-2 border-t border-light-gray grid grid-cols-2 pt-2 pb-1 px-1">
+  <div class="mx-2 mt-2 border-t border-light-gray flex items-center pt-2 pb-1 px-1">
     <button
-      class="hover:bg-gray py-2 rounded flex justify-center items-center font-bold"
+      class="hover:bg-gray flex-1 py-2 rounded flex justify-center items-center font-bold"
       [class.text-primary]="currentUserLikesPost"
       (click)="toggleLike()"
     >
       <fa-icon [icon]="thumbsUpIcon" class="pr-4"></fa-icon>Like
     </button>
-    <button class="text-center hover:bg-gray py-2 rounded">
+    <button class="text-center flex-1 hover:bg-gray py-2 rounded" (click)="toggleOpenComment()">
       <fa-icon [icon]="commentDotsIcon" class="pr-4"></fa-icon>Comment
     </button>
+  </div>
+  <div class="mx-2 py-3 px-1 border-t border-light-gray" *ngIf="openComment">
+    <div *ngFor="let comment of post.Comments" class="flex mt-1.5 mb-2 items-start">
+      <div
+        class="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-2"
+        [ngStyle]="{ 'background-color': '#' + comment.Author._id.slice(-6) }"
+      >
+        <fa-icon [icon]="userIcon" size="xs"></fa-icon>
+      </div>
+      <div class="py-2 px-5 rounded-3xl bg-soft-gray placeholder-light-gray border-none max-w-md">
+        <div class="font-bold">
+          {{ comment.Author.FirstName }} {{ comment.Author.LastName }}
+          <span class="text-light-gray italic font-normal text-xs">
+            · {{ getCommentTimeDifference(comment.createdAt) }}
+          </span>
+        </div>
+        <div class="leading-4">{{ comment.Content }}</div>
+      </div>
+    </div>
+    <div class="flex items-center">
+      <div
+        class="rounded-full w-6 h-6 flex justify-center items-center mr-3"
+        [ngStyle]="{ 'background-color': '#' + currentUser._id.slice(-6) }"
+      >
+        <fa-icon [icon]="userIcon" size="xs"></fa-icon>
+      </div>
+      <textarea
+        placeholder="Write a comment..."
+        [id]="'writeComment' + post._id"
+        (keyup.enter)="postComment($event)"
+        [(ngModel)]="newComment"
+        (input)="onInputChange()"
+        class="
+          py-2
+          px-5
+          rounded-3xl
+          bg-soft-gray
+          placeholder-light-gray
+          flex-1
+          border-none
+          outline-none
+          focus:outline-none focus:border-none
+          active:outline-none
+          focus:shadow-none
+          active:shadow-none
+          focus:ring-0
+        "
+      ></textarea>
+    </div>
   </div>
 </div>

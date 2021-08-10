@@ -9,7 +9,7 @@ export interface User {
 }
 
 export interface LoggedInResponse {
-  Id: string;
+  _id: string;
   Username: string;
   Email: string;
   AccessToken: string;

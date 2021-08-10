@@ -5,5 +5,14 @@ export interface Post {
   Content: string;
   Author: User;
   Likes: User[];
-  createdAt: Date;
+  Comments: Comment[];
+  createdAt: string;
+}
+
+interface Comment {
+  _id: string;
+  Author: User;
+  Content: string;
+  Likes: User[];
+  createdAt: string;
 }

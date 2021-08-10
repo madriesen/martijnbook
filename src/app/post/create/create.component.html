@@ -9,7 +9,7 @@
     <textarea
       placeholder="Hey {{ currentUser.FirstName }}, what's on your mind?"
       id="createPost"
-      (change)="setCreatePostInputHeight()"
+      (change)="onInputChange()"
       [(ngModel)]="newPost"
       class="
         py-2

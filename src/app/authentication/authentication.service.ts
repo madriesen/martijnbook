@@ -48,7 +48,7 @@ export class AuthenticationService {
       .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
       .subscribe((data: LoggedInResponse) => {
         localStorage.setItem('authorization', 'Bearer ' + data.AccessToken);
-        this.http.get<User>(environment.api + '/user/' + data.Id).subscribe((data) => {
+        this.http.get<User>(environment.api + '/user/' + data._id).subscribe((data) => {
           this.updateUser(data);
           localStorage.setItem('auth', JSON.stringify(this.currentUserValue));
           this.errorhandling.updateErrorMessage('');
