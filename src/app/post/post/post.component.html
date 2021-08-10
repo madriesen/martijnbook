@@ -19,7 +19,22 @@
   -->
   <div class="group mx-2 px-1 mt-5 relative inline-block" *ngIf="amountOfLikes > 0">
     <span class="flex items-center">
-      <div class="absolute bg-light-gray text-black p-2 bottom-0 mb-8 ml-2 rounded hidden group-hover:block w-52">
+      <div
+        class="
+          absolute
+          bg-light-gray
+          text-black
+          p-2
+          bottom-0
+          mb-8
+          ml-2
+          rounded
+          hidden
+          group-hover:block
+          group-focus:block
+          w-52
+        "
+      >
         <p class="font-bold">Like</p>
         <ul>
           <li *ngFor="let like of post.Likes">{{ like.FirstName }} {{ like.LastName }}</li>

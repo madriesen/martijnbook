@@ -40,7 +40,7 @@ module.exports = {
       ringWidth: ['hover', 'focus', 'active'],
       backgroundColor: ['disabled'],
       textColor: ['disabled'],
-      display: ['group-hover'],
+      display: ['group-hover', 'group-focus'],
     },
   },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
