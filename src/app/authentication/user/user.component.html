@@ -1,70 +1,43 @@
-<main>
-  <h1 class="font-bold italic text-4xl">Hi, {{ user.FirstName }} {{ user.LastName }}</h1>
-  <p class="italic">Here you can change and update your account</p>
-
-  <section class="mt-5 bg-gray rounded-lg p-2">
-    <div class="px-8 pt-2 pb-4">
-      <!-- <p (class)="(errorMessage ? 'w-0' : '')" class="mb-4 text-red italic">
+<section class="mt-5 bg-gray rounded-lg p-2">
+  <div class="px-8 pt-2 pb-4">
+    <!-- <p (class)="(errorMessage ? 'w-0' : '')" class="mb-4 text-red italic">
         {{ errorMessage }}
       </p> -->
-      <div class="grid grid-cols-1 gap-x-10">
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname"> First Name </label>
-          <input id="firstname" type="text" placeholder="John" [(ngModel)]="updatedUser.FirstName" name="firstname" />
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname"> Last Name </label>
-          <input id="lastname" type="text" placeholder="Doe" [(ngModel)]="updatedUser.LastName" name="lastname" />
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Email </label>
-          <input id="email" type="email" placeholder="Email" [(ngModel)]="updatedUser.Email" name="email" />
-        </div>
+    <div class="grid grid-cols-1 gap-x-10">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname"> First Name </label>
+        <input id="firstname" type="text" placeholder="John" [(ngModel)]="updatedUser.FirstName" name="firstname" />
       </div>
-      <!-- <div class="mt-5 flex items-center justify-center">
-        <button
-        (click)="onRegister()"
-        class="
-        bg-primary
-        hover:bg-blue-700
-        text-white
-        font-bold
-        py-2
-        px-4
-        w-full
-        rounded
-        focus:outline-none focus:shadow-outline
-        "
-        >
-        <div *ngIf="!loading">Sign Up</div>
-        <div *ngIf="loading" class="loading flex justify-center items-center">
-          <div class="icon icon-1"></div>
-          <div class="icon icon-2"></div>
-          <div class="icon icon-3"></div>
-        </div>
-      </button>
-    </div> -->
-      <div class="flex justify-between mt-6">
-        <button
-          [disabled]="!userModified"
-          (click)="saveUser()"
-          class="
-            rounded-3xl
-            bg-primary
-            text-white
-            font-bold
-            px-3
-            py-2
-            min-w-button
-            disabled:bg-soft-gray disabled:text-light-gray
-          "
-        >
-          Save
-        </button>
-        <button (click)="logout()" class="text-red rounded-3xl bg-soft-gray font-bold px-3 py-2 min-w-button">
-          Logout
-        </button>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname"> Last Name </label>
+        <input id="lastname" type="text" placeholder="Doe" [(ngModel)]="updatedUser.LastName" name="lastname" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Email </label>
+        <input id="email" type="email" placeholder="Email" [(ngModel)]="updatedUser.Email" name="email" />
       </div>
     </div>
-  </section>
-</main>
+
+    <div class="flex justify-between mt-6">
+      <button
+        [disabled]="!userModified"
+        (click)="saveUser()"
+        class="
+          rounded-3xl
+          bg-primary
+          text-white
+          font-bold
+          px-3
+          py-2
+          min-w-button
+          disabled:bg-soft-gray disabled:text-light-gray
+        "
+      >
+        Save
+      </button>
+      <button (click)="logout()" class="text-red rounded-3xl bg-soft-gray font-bold px-3 py-2 min-w-button">
+        Logout
+      </button>
+    </div>
+  </div>
+</section>

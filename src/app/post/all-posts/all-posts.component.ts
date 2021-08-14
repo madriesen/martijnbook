@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { LoadingService } from 'src/app/loading.service';
 import { SocketIoService } from 'src/app/socket-io.service';
 import { PostService } from '../post.service';
-import { Post } from '../post/post.interface';
+import { Post } from '../interfaces/post.interface';
 
 @Component({
   selector: 'all-posts',

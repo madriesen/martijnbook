@@ -11,7 +11,7 @@ import { AuthenticationService } from 'src/app/authentication/authentication.ser
 import { User } from 'src/app/authentication/interfaces/user.interface';
 import { PostService } from '../post.service';
 import { emoticonize } from './emoticon.helper';
-import { Post } from './post.interface';
+import { Post } from '../interfaces/post.interface';
 
 @Component({
   selector: 'post',

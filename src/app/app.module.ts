@@ -13,9 +13,10 @@ import { LoadingInterceptor } from './loading.interceptor';
 import { ErrorhandlingModule } from './errorhandling/errorhandling.module';
 import { ErrorhandlingService } from './errorhandling/errorhandling.service';
 import { HttpClientService } from './http-client.service';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, HomeComponent],
+  declarations: [AppComponent, NavbarComponent, HomeComponent, AccountComponent],
   imports: [AppRoutingModule, FontAwesomeModule, AuthenticationModule, PostModule, CommonModule, ErrorhandlingModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },

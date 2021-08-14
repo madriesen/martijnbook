@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClientService } from '../http-client.service';
-import { Post } from './post/post.interface';
+import { Post } from './interfaces/post.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +44,7 @@ export class PostService {
     this.http.post<Post>(`/post/${data._id}/comment`, { Content: data.comment }).subscribe((returnPost: Post) => {
       const index = this.postsValue.findIndex((post) => post._id == returnPost._id);
       this.postsValue[index] = returnPost;
-      console.log('returnPost', returnPost);
+
       this.postsSubject.next(this.postsValue);
     });
   }

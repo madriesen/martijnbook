@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../interfaces/user.interface';
 
 @Component({
-  selector: 'app-user',
+  selector: 'user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  user: Partial<User>;
+  @Input() user: Partial<User>;
   updatedUser: Partial<User>;
 
   constructor(private authenticationService: AuthenticationService) {
@@ -17,7 +17,6 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticationService.currentUserSubject.subscribe((user) => (this.user = user as Partial<User>));
     this.updatedUser = JSON.parse(JSON.stringify(this.user));
   }
 

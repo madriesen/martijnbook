@@ -12,7 +12,7 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     this.totalRequests++;
-    console.log('request', request);
+
     if (request.url === `${environment.api}/post` && request.method === 'GET') this.setPostLoading();
     this.loadingService.setLoading(true);
 

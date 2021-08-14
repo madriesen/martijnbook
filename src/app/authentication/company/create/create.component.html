@@ -1,0 +1,145 @@
+<div
+  class="
+    overflow-x-hidden overflow-y-auto
+    fixed
+    inset-0
+    z-50
+    outline-none
+    focus:outline-none
+    justify-center
+    items-center
+    flex
+  "
+>
+  <div class="relative w-screen my-6 mx-auto max-w-2xl">
+    <!--content-->
+    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray outline-none focus:outline-none">
+      <!--header-->
+      <div class="flex items-start justify-between p-5 border-b border-solid border-soft-gray rounded-t">
+        <h3 class="text-3xl font-semibold">Create company</h3>
+        <button
+          class="
+            p-1
+            ml-auto
+            bg-transparent
+            border-0
+            text-white
+            float-right
+            text-3xl
+            leading-none
+            font-semibold
+            outline-none
+            focus:outline-none
+          "
+          (click)="closeModal()"
+        >
+          <span class="bg-transparent h-6 w-6 text-2xl block outline-none focus:outline-none"> × </span>
+        </button>
+      </div>
+      <!--body-->
+      <div class="relative p-6 flex-auto">
+        <div class="my-4 text-lg leading-relaxed">
+          <p (class)="(errorMessage ? 'w-0' : '')" class="mb-4 text-red italic">
+            {{ errorMessage }}
+          </p>
+
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email"> Email </label>
+            <input
+              class="
+                shadow
+                appearance-none
+                border
+                rounded
+                w-full
+                py-2
+                px-3
+                text-black
+                leading-tight
+                focus:outline-none focus:shadow-outline
+              "
+              id="name"
+              type="text"
+              placeholder="Name"
+              [(ngModel)]="company.Name"
+              name="name"
+            />
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password"> Password </label>
+            <input
+              class="
+                shadow
+                appearance-none
+                border
+                rounded
+                w-full
+                py-2
+                px-3
+                text-black
+                mb-3
+                leading-tight
+                focus:outline-none focus:shadow-outline
+              "
+              id="address"
+              type="text"
+              placeholder="Street + number, city + zipcode"
+              [(ngModel)]="company.Address"
+              name="address"
+            />
+            <!-- <p class="text-red text-xs italic">Please enter a password.</p> -->
+          </div>
+          <div class="mb-8">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="description"> Description </label>
+            <input
+              class="
+                shadow
+                appearance-none
+                border
+                rounded
+                w-full
+                py-2
+                px-3
+                text-black
+                mb-3
+                leading-tight
+                focus:outline-none focus:shadow-outline
+              "
+              id="description"
+              type="text"
+              placeholder="Description..."
+              [(ngModel)]="company.Description"
+              name="description"
+            />
+          </div>
+        </div>
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end p-6 border-t border-solid border-soft-gray rounded-b">
+        <div class="flex items-center justify-center">
+          <button
+            (click)="onCreate()"
+            class="
+              bg-primary
+              hover:bg-blue-700
+              font-bold
+              py-2
+              px-4
+              w-full
+              rounded
+              focus:outline-none focus:shadow-outline
+            "
+          >
+            <div *ngIf="!loading">Create Company</div>
+            <div *ngIf="loading" class="loading flex justify-center items-center">
+              <div class="icon icon-1"></div>
+              <div class="icon icon-2"></div>
+              <div class="icon icon-3"></div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="opacity-50 fixed inset-0 z-40 bg-black"></div>

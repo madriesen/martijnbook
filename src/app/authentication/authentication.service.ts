@@ -7,6 +7,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
 import { HttpClientService } from '../http-client.service';
+import { Company } from './company/interfaces/company.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,10 +21,18 @@ export class AuthenticationService {
 
   constructor(private router: Router, private http: HttpClientService, private errorhandling: ErrorhandlingService) {
     const user = localStorage.getItem('auth');
+    this.currentUserSubject = new BehaviorSubject<User>({ _id: '0', FirstName: '', LastName: '', Email: '' });
+
     user && (this.isLoggedIn = true);
-    this.currentUserSubject = new BehaviorSubject<User>(
-      user ? JSON.parse(user) : { _id: '0', FirstName: '', LastName: '', Email: '' }
-    );
+
+    if (user && JSON.parse(user)._id != 0) {
+      this._getUser(JSON.parse(user)._id).subscribe((user) => {
+        this.updateUser(user);
+        this.errorhandling.updateErrorMessage('');
+        this.isLoggedIn = true;
+        this.currentUserSubject.next(user);
+      });
+    }
 
     this.errorMessageSubject = new BehaviorSubject('');
     this.errorhandling.errorMessage$.subscribe((message) => this.updateErrorMessage(message));
@@ -81,6 +90,7 @@ export class AuthenticationService {
 
   logout(): void {
     localStorage.removeItem('auth');
+    localStorage.removeItem('authorization');
     this.isLoggedIn = false;
     this.updateUser({ _id: '0', FirstName: '', LastName: '', Email: '' });
     this.router.navigate(['login']);
@@ -94,6 +104,16 @@ export class AuthenticationService {
         this._getUser(data._id).subscribe((user) => {
           this.updateUser(user);
         });
+      });
+  }
+
+  createCompany(company: Company): void {
+    this.http
+      .post<Company>(`/company`, { ...company })
+      .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
+      .subscribe((company) => {
+        const newUser = { ...this.currentUserValue, Company: company };
+        this.updateUser(newUser);
       });
   }
 }
