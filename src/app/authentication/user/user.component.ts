@@ -8,17 +8,20 @@ import { User } from '../interfaces/user.interface';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  @Input() user: Partial<User>;
-  updatedUser: Partial<User>;
+  user: Partial<User> = {};
+  updatedUser: Partial<User> = {};
 
   constructor(private authenticationService: AuthenticationService) {
-    this.user = {};
-    this.updatedUser = {};
+    this.authenticationService.currentUserSubject.subscribe((user) => {
+      this.user = user;
+
+      this.updatedUser.FirstName = user.FirstName;
+      this.updatedUser.LastName = user.LastName;
+      this.updatedUser.Email = user.Email;
+    });
   }
 
-  ngOnInit(): void {
-    this.updatedUser = JSON.parse(JSON.stringify(this.user));
-  }
+  ngOnInit(): void {}
 
   get userModified() {
     return (

@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { LoggedInResponse, User } from './interfaces/user.interface';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, retry } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
 import { HttpClientService } from '../http-client.service';
 import { Company } from './company/interfaces/company.interface';
+import { LoggedInResponse, User } from './interfaces/user.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,10 +17,12 @@ export class AuthenticationService {
   public errorMessage$: Observable<string>;
 
   public currentUserSubject: BehaviorSubject<User>;
+  public currentCompanySubject: BehaviorSubject<Company>;
 
   constructor(private router: Router, private http: HttpClientService, private errorhandling: ErrorhandlingService) {
     const user = localStorage.getItem('auth');
     this.currentUserSubject = new BehaviorSubject<User>({ _id: '0', FirstName: '', LastName: '', Email: '' });
+    this.currentCompanySubject = new BehaviorSubject<Company>({ _id: '0', Name: '', Address: '', Description: '' });
 
     user && (this.isLoggedIn = true);
 
@@ -31,6 +32,9 @@ export class AuthenticationService {
         this.errorhandling.updateErrorMessage('');
         this.isLoggedIn = true;
         this.currentUserSubject.next(user);
+      });
+      this._getCompany(JSON.parse(user).Company._id).subscribe((company) => {
+        this.updateCompany(company);
       });
     }
 
@@ -69,7 +73,7 @@ export class AuthenticationService {
 
   private _getUser(user_id: string): Observable<User> {
     return this.http
-      .get<User>('/user/' + user_id)
+      .get<User>(`/user/${user_id}`)
       .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)));
   }
 
@@ -112,8 +116,22 @@ export class AuthenticationService {
       .post<Company>(`/company`, { ...company })
       .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
       .subscribe((company) => {
-        const newUser = { ...this.currentUserValue, Company: company };
-        this.updateUser(newUser);
+        this._getCompany(company._id).subscribe((company) => {
+          this.updateCompany(company);
+        });
+        this._getUser(this.currentUserValue._id).subscribe((user) => {
+          this.updateUser({ ...user, Company: company });
+        });
       });
+  }
+
+  private _getCompany(company_id: string): Observable<Company> {
+    return this.http
+      .get<Company>(`/company/${company_id}`)
+      .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)));
+  }
+
+  private updateCompany(company: Company) {
+    this.currentCompanySubject.next(company);
   }
 }

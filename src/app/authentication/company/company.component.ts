@@ -12,8 +12,8 @@ export class CompanyComponent implements OnInit {
   company: Company | undefined;
 
   constructor(private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUserSubject.subscribe((user) => {
-      this.company = user.Company;
+    this.authenticationService.currentCompanySubject.subscribe((company) => {
+      this.company = company;
     });
   }
 
