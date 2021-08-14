@@ -10,7 +10,7 @@ import { LoadingService } from '../../loading.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
   user: Partial<User>;
   errorMessage: String;
   loading: Boolean;
@@ -34,8 +34,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.authenticationService.errorMessage$.subscribe((message) => (this.errorMessage = message))
     );
   }
-
-  ngOnInit(): void {}
 
   onLogin(): void {
     this.errorMessage = '';

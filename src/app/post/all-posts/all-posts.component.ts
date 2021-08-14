@@ -6,7 +6,7 @@ import { PostService } from '../post.service';
 import { Post } from '../interfaces/post.interface';
 
 @Component({
-  selector: 'all-posts',
+  selector: 'app-all-posts',
   templateUrl: './all-posts.component.html',
   styleUrls: ['./all-posts.component.css'],
 })

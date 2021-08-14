@@ -14,7 +14,7 @@ import { emoticonize } from './emoticon.helper';
 import { Post } from '../interfaces/post.interface';
 
 @Component({
-  selector: 'post',
+  selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
 })

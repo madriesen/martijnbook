@@ -6,11 +6,11 @@ import { User } from '../interfaces/user.interface';
 import { LoadingService } from '../../loading.service';
 
 @Component({
-  selector: 'register',
+  selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnDestroy {
   user: Partial<User>;
   errorMessage: String;
   loading: Boolean;
@@ -36,8 +36,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.authenticationService.errorMessage$.subscribe((message) => (this.errorMessage = message))
     );
   }
-
-  ngOnInit(): void {}
 
   onRegister(): void {
     this.errorMessage = '';

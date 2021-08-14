@@ -6,7 +6,7 @@ import { PostService } from '../post.service';
 import { emoticonize } from '../post/emoticon.helper';
 
 @Component({
-  selector: 'create-post',
+  selector: 'app-create-post',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
 })

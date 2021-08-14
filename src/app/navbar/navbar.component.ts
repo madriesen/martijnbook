@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { User } from '../authentication/interfaces/user.interface';
 import { AuthenticationService } from '../authentication/authentication.service';
+import { User } from '../authentication/interfaces/user.interface';
 
 @Component({
-  selector: 'navbar',
+  selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   user: Partial<User> = {};
   userIcon: IconDefinition;
 
@@ -20,9 +20,5 @@ export class NavbarComponent implements OnInit {
   get userName(): string {
     if (this.user.FirstName === '' || this.user.LastName === '') return 'Login';
     return `${this.user.FirstName} ${this.user.LastName}`;
-  }
-
-  ngOnInit(): void {
-    // this.getUser();
   }
 }

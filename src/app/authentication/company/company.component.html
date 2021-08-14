@@ -8,7 +8,7 @@
       <button class="text-white rounded-3xl bg-primary font-bold px-3 py-2 min-w-button" (click)="showModal()">
         Create a company
       </button>
-      <create *ngIf="openModal" (closeComponent)="openModal = false"></create>
+      <app-company-create *ngIf="openModal" (closeComponent)="openModal = false"></app-company-create>
     </div>
     <div *ngIf="company" #showCompany>
       <p *ngIf="!canUpdate" class="italic text-red pb-2">Can only be updated as company owner.</p>

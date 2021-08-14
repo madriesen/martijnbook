@@ -3,11 +3,11 @@ import { AuthenticationService } from '../authentication.service';
 import { Company } from './interfaces/company.interface';
 
 @Component({
-  selector: 'company',
+  selector: 'app-company',
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.css'],
 })
-export class CompanyComponent implements OnInit {
+export class CompanyComponent {
   openModal = false;
   company: Partial<Company> = {};
   updatedCompany: Partial<Company> = {};
@@ -21,8 +21,6 @@ export class CompanyComponent implements OnInit {
       this.updatedCompany.Description = company.Description;
     });
   }
-
-  ngOnInit(): void {}
 
   showModal() {
     this.openModal = true;

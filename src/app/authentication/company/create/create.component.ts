@@ -3,11 +3,11 @@ import { AuthenticationService } from '../../authentication.service';
 import { Company } from '../interfaces/company.interface';
 
 @Component({
-  selector: 'create',
+  selector: 'app-company-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent {
   company: Company;
   errorMessage: string = '';
   loading: boolean = false;
@@ -15,8 +15,6 @@ export class CreateComponent implements OnInit {
   constructor(private authenticationSerivce: AuthenticationService) {
     this.company = { _id: '', Address: '', Name: '', Description: '' };
   }
-
-  ngOnInit(): void {}
 
   @Output()
   closeComponent = new EventEmitter<void>();

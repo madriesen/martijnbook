@@ -3,11 +3,11 @@ import { AuthenticationService } from '../authentication.service';
 import { User } from '../interfaces/user.interface';
 
 @Component({
-  selector: 'user',
+  selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })
-export class UserComponent implements OnInit {
+export class UserComponent {
   user: Partial<User> = {};
   updatedUser: Partial<User> = {};
 
@@ -20,8 +20,6 @@ export class UserComponent implements OnInit {
       this.updatedUser.Email = user.Email;
     });
   }
-
-  ngOnInit(): void {}
 
   get userModified() {
     return (
