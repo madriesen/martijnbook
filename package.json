@@ -12,6 +12,12 @@
     "format:check": "prettier --config ./.prettierrc --list-different \"src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\"",
     "lint": "ng lint"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "ng lint --fix",
+      "pre-push": "ng build --aot true"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.1.0-",
