@@ -1,4 +1,5 @@
 import { Company } from '../company/interfaces/company.interface';
+import { Role } from './role.interface';
 
 export interface User {
   _id: string;
@@ -7,7 +8,7 @@ export interface User {
   Email: string;
   Password?: string;
   Username?: string;
-  RoleID?: string | Record<string, any>;
+  RoleID: Role;
   Company?: Company;
   __v?: number;
 }

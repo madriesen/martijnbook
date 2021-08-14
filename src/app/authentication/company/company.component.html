@@ -1,6 +1,8 @@
-<section class="mt-5 bg-gray rounded-lg p-2">
-  <div class="px-8 pt-2 pb-4">
-    <h1 class="text-2xl font-bold">My Company</h1>
+<section class="mt-5 bg-gray rounded-lg">
+  <div class="border-b border-light-gray pt-6 pb-2 px-8 mb-6">
+    <h1 class="text-2xl font-bold mb-1">Company Details</h1>
+  </div>
+  <div class="px-8 pb-4">
     <div *ngIf="company === undefined">
       <p class="pl-2 my-3 italic">You are no part of a company yet. Do you want to create one?</p>
       <button class="text-white rounded-3xl bg-primary font-bold px-3 py-2 min-w-button" (click)="showModal()">
@@ -9,9 +11,60 @@
       <create *ngIf="openModal" (closeComponent)="openModal = false"></create>
     </div>
     <div *ngIf="company" #showCompany>
-      <p>Name: {{ company.Name }}</p>
-      <p>Address: {{ company.Address }}</p>
-      <p>Description: {{ company.Description }}</p>
+      <p *ngIf="!canUpdate" class="italic text-red pb-2">Can only be updated as company owner.</p>
+      <div class="grid grid-cols-1 gap-x-10">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="name"> Name </label>
+          <input
+            [disabled]="!canUpdate"
+            id="name"
+            type="text"
+            placeholder="John"
+            [(ngModel)]="company.Name"
+            name="name"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="address"> Address </label>
+          <input
+            [disabled]="!canUpdate"
+            id="address"
+            type="text"
+            placeholder="Doe"
+            [(ngModel)]="company.Address"
+            name="lastname"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="description"> Description </label>
+          <input
+            [disabled]="!canUpdate"
+            id="description"
+            type="text"
+            placeholder="description"
+            [(ngModel)]="company.Description"
+            name="description"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-between mt-6">
+      <button
+        [disabled]="!companyModified"
+        (click)="saveCompany()"
+        class="
+          rounded-3xl
+          bg-primary
+          text-white
+          font-bold
+          px-3
+          py-2
+          min-w-button
+          disabled:bg-soft-gray disabled:text-light-gray
+        "
+      >
+        Save
+      </button>
     </div>
   </div>
 </section>

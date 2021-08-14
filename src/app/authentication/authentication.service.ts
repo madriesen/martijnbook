@@ -21,7 +21,13 @@ export class AuthenticationService {
 
   constructor(private router: Router, private http: HttpClientService, private errorhandling: ErrorhandlingService) {
     const user = localStorage.getItem('auth');
-    this.currentUserSubject = new BehaviorSubject<User>({ _id: '0', FirstName: '', LastName: '', Email: '' });
+    this.currentUserSubject = new BehaviorSubject<User>({
+      _id: '0',
+      FirstName: '',
+      LastName: '',
+      Email: '',
+      RoleID: { _id: '', Name: '' },
+    });
     this.currentCompanySubject = new BehaviorSubject<Company>({ _id: '0', Name: '', Address: '', Description: '' });
 
     user && (this.isLoggedIn = true);
@@ -96,7 +102,7 @@ export class AuthenticationService {
     localStorage.removeItem('auth');
     localStorage.removeItem('authorization');
     this.isLoggedIn = false;
-    this.updateUser({ _id: '0', FirstName: '', LastName: '', Email: '' });
+    this.updateUser({ _id: '0', FirstName: '', LastName: '', Email: '', RoleID: { _id: '', Name: '' } });
     this.router.navigate(['login']);
   }
 

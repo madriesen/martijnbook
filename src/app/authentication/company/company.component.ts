@@ -9,11 +9,16 @@ import { Company } from './interfaces/company.interface';
 })
 export class CompanyComponent implements OnInit {
   openModal = false;
-  company: Company | undefined;
+  company: Partial<Company> = {};
+  updatedCompany: Partial<Company> = {};
 
   constructor(private authenticationService: AuthenticationService) {
     this.authenticationService.currentCompanySubject.subscribe((company) => {
       this.company = company;
+
+      this.updatedCompany.Name = company.Name;
+      this.updatedCompany.Address = company.Address;
+      this.updatedCompany.Description = company.Description;
     });
   }
 
@@ -21,5 +26,21 @@ export class CompanyComponent implements OnInit {
 
   showModal() {
     this.openModal = true;
+  }
+
+  get companyModified() {
+    return (
+      this.updatedCompany.Name !== this.company.Name ||
+      this.updatedCompany.Address !== this.company.Address ||
+      this.updatedCompany.Description !== this.company.Description
+    );
+  }
+
+  get canUpdate() {
+    return this.authenticationService.currentUserValue.RoleID!.Name === 'Superadmin';
+  }
+
+  saveCompany() {
+    console.log('save');
   }
 }
