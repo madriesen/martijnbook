@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 import { Company } from './interfaces/company.interface';
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthenticationService } from '../../authentication.service';
 import { Company } from '../interfaces/company.interface';
 

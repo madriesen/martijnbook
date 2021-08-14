@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { ErrorhandlingService } from '../errorhandling/errorhandling.service';
 import { ErrorhandlingModule } from '../errorhandling/errorhandling.module';

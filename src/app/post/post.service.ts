@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { HttpClientService } from '../http-client.service';
 import { Post } from './interfaces/post.interface';
 
