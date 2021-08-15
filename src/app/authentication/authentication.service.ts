@@ -32,9 +32,10 @@ export class AuthenticationService {
 
     if (user && JSON.parse(user)._id != 0) {
       this.login(JSON.parse(user));
-      this._getCompany(JSON.parse(user).Company._id).subscribe((company) => {
-        this.updateCompany(company);
-      });
+      if (JSON.parse(user).Company) console.log('JSON.parse', JSON.parse(user));
+      // this._getCompany(JSON.parse(user).Company._id).subscribe((company) => {
+      //   this.updateCompany(company);
+      // });
     }
 
     this.errorMessageSubject = new BehaviorSubject('');
@@ -61,9 +62,13 @@ export class AuthenticationService {
       .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
       .subscribe((data: LoggedInResponse) => {
         localStorage.setItem('authorization', 'Bearer ' + data.AccessToken);
-        this._getUser(data._id).subscribe((data) => {
-          console.log('data', data);
-          this.updateUser(data);
+        this._getUser(data._id).subscribe((user) => {
+          this.updateUser(user);
+          if (user.Company)
+            this._getCompany(user.Company._id).subscribe((company) => {
+              this.updateCompany(company);
+            });
+          else this.updateCompany({ _id: '0', Name: '', Description: '', Address: '' });
           this.errorhandling.updateErrorMessage('');
           this.isLoggedIn = true;
           this.router.navigate([this.redirectUrl]);

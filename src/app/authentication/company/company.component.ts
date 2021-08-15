@@ -11,7 +11,7 @@ import { Company } from './interfaces/company.interface';
 })
 export class CompanyComponent {
   openModal = false;
-  company: Partial<Company> = {};
+  company: Partial<Company> = { _id: '0' };
   updatedCompany: Partial<Company> = {};
   userIcon: IconDefinition = faUser;
   thumbsUpIcon: IconDefinition = faThumbsUp;
