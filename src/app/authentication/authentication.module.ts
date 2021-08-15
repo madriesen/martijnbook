@@ -13,10 +13,19 @@ import { HttpClientService } from '../http-client.service';
 import { UserComponent } from './user/user.component';
 import { CompanyComponent } from './company/company.component';
 import { CreateComponent } from './company/create/create.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent, UserComponent, CompanyComponent, CreateComponent],
-  imports: [CommonModule, BrowserModule, HttpClientModule, FormsModule, AppRoutingModule, ErrorhandlingModule],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule,
+    ErrorhandlingModule,
+    FontAwesomeModule,
+  ],
   providers: [AuthenticationService, ErrorhandlingService, HttpClientService],
   exports: [UserComponent, CompanyComponent],
 })

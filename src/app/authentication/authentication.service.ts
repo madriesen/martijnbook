@@ -33,12 +33,7 @@ export class AuthenticationService {
     user && (this.isLoggedIn = true);
 
     if (user && JSON.parse(user)._id != 0) {
-      this._getUser(JSON.parse(user)._id).subscribe((user) => {
-        this.updateUser(user);
-        this.errorhandling.updateErrorMessage('');
-        this.isLoggedIn = true;
-        this.currentUserSubject.next(user);
-      });
+      this.login(JSON.parse(user));
       this._getCompany(JSON.parse(user).Company._id).subscribe((company) => {
         this.updateCompany(company);
       });
@@ -69,6 +64,7 @@ export class AuthenticationService {
       .subscribe((data: LoggedInResponse) => {
         localStorage.setItem('authorization', 'Bearer ' + data.AccessToken);
         this._getUser(data._id).subscribe((data) => {
+          console.log('data', data);
           this.updateUser(data);
           this.errorhandling.updateErrorMessage('');
           this.isLoggedIn = true;
@@ -139,5 +135,20 @@ export class AuthenticationService {
 
   private updateCompany(company: Company) {
     this.currentCompanySubject.next(company);
+  }
+
+  public findUser(emailAddress: string) {
+    return this.http
+      .get<User>(`/user/search/${emailAddress}`)
+      .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)));
+  }
+
+  public addUserToCompany(company_id: string, userId: string) {
+    this.http
+      .post<Company>(`/company/${company_id}`, { UserId: userId })
+      .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
+      .subscribe((company) => {
+        this.updateCompany(company);
+      });
   }
 }
