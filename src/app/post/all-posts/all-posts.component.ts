@@ -28,16 +28,16 @@ export class AllPostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.socketService.listen('post_create', () => {
-      this.postService.getAllPosts();
+    this.socketService.listen('post_create', (post_id) => {
+      this.postService.getOnePost(post_id);
     });
 
-    this.socketService.listen('comment_create', () => {
-      this.postService.getAllPosts();
+    this.socketService.listen('comment_create', (post_id) => {
+      this.postService.getOnePost(post_id);
     });
 
-    this.socketService.listen('like_toggle', () => {
-      this.postService.getAllPosts();
+    this.socketService.listen('like_toggle', (post_id) => {
+      this.postService.getOnePost(post_id);
     });
   }
 }
