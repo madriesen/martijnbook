@@ -30,8 +30,6 @@ export class AuthenticationService {
     });
     this.currentCompanySubject = new BehaviorSubject<Company>({ _id: '0', Name: '', Address: '', Description: '' });
 
-    user && (this.isLoggedIn = true);
-
     if (user && JSON.parse(user)._id != 0) {
       this.login(JSON.parse(user));
       this._getCompany(JSON.parse(user).Company._id).subscribe((company) => {

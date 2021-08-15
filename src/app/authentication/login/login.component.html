@@ -54,9 +54,11 @@
       <div class="flex items-center justify-center">
         <button
           (click)="onLogin()"
+          [disabled]="!canSignIn"
           class="
             bg-primary
             hover:bg-blue-700
+            disabled:bg-gray
             text-white
             font-bold
             py-2

@@ -45,4 +45,12 @@ export class LoginComponent implements OnDestroy {
       subscription.unsubscribe();
     });
   }
+
+  get canSignIn(): boolean {
+    return this.checkIsValid(this.user.Email) && this.checkIsValid(this.user.Password);
+  }
+
+  checkIsValid(prop: any) {
+    return prop != undefined && prop.length > 0;
+  }
 }
