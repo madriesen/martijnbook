@@ -28,7 +28,6 @@ export class LoadingInterceptor implements HttpInterceptor {
   }
 
   setPostLoading() {
-    console.log('posts are loading');
     this.loadingService.setPostsLoading(true);
   }
 }

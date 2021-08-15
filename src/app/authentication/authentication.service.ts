@@ -32,10 +32,10 @@ export class AuthenticationService {
 
     if (user && JSON.parse(user)._id != 0) {
       this.login(JSON.parse(user));
-      if (JSON.parse(user).Company) console.log('JSON.parse', JSON.parse(user));
-      // this._getCompany(JSON.parse(user).Company._id).subscribe((company) => {
-      //   this.updateCompany(company);
-      // });
+      if (JSON.parse(user).Company)
+        this._getCompany(JSON.parse(user).Company._id).subscribe((company) => {
+          this.updateCompany(company);
+        });
     }
 
     this.errorMessageSubject = new BehaviorSubject('');
@@ -148,10 +148,21 @@ export class AuthenticationService {
 
   public addUserToCompany(company_id: string, userId: string) {
     this.http
-      .post<Company>(`/company/${company_id}`, { UserId: userId })
+      .post<Company>(`/company/${company_id}/add-user`, { UserId: userId })
       .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
       .subscribe((company) => {
         this.updateCompany(company);
+      });
+  }
+
+  public saveCompany(company: Company) {
+    this.http
+      .post<Company>(`/company/${company._id}`, company)
+      .pipe(catchError((error: HttpErrorResponse) => this.errorhandling.handleError(error)))
+      .subscribe((company) => {
+        this._getCompany(company._id).subscribe((company) => {
+          this.updateCompany(company);
+        });
       });
   }
 }

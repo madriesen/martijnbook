@@ -11,7 +11,7 @@ import { Company } from './interfaces/company.interface';
 })
 export class CompanyComponent {
   openModal = false;
-  company: Partial<Company> = { _id: '0' };
+  company: Company = { _id: '0', Address: '', Name: '', Description: '' };
   updatedCompany: Partial<Company> = {};
   userIcon: IconDefinition = faUser;
   thumbsUpIcon: IconDefinition = faThumbsUp;
@@ -22,6 +22,7 @@ export class CompanyComponent {
     this.authenticationService.currentCompanySubject.subscribe((company) => {
       this.company = company;
 
+      this.updatedCompany._id = company._id;
       this.updatedCompany.Name = company.Name;
       this.updatedCompany.Address = company.Address;
       this.updatedCompany.Description = company.Description;
@@ -45,7 +46,7 @@ export class CompanyComponent {
   }
 
   saveCompany() {
-    console.log('save');
+    this.authenticationService.saveCompany(this.company);
   }
 
   findUser() {
