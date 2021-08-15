@@ -121,11 +121,11 @@ export class PostComponent implements OnInit {
 
     const diffInHours = diffInMinutes / 60;
 
-    if (diffInHours < 60) return diffInHours.toFixed(0) + ' h';
+    if (diffInHours < 24) return diffInHours.toFixed(0) + ' h';
 
     const diffInDays = diffInHours / 24;
 
-    if (diffInDays < 24) return diffInDays.toFixed(0) + ' d';
+    if (diffInDays < 30) return diffInDays.toFixed(0) + ' d';
 
     const diffInMonths = diffInDays / 30;
 
